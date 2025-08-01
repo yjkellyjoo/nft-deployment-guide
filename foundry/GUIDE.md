@@ -9,6 +9,8 @@ This guide covers a complete NFT deployment workflow with enhanced security thro
 
 ## NFT Contract Code Walkthrough
 
+Code can be found under [`src/NFT.sol`](https://github.com/yjkellyjoo/nft-deployment-guide/blob/main/foundry/src/NFT.sol).
+
 ### 1. Inheritance Chain
 - `DemoNFT` inherits from `ERC721` and `Ownable`
 - `ERC721` provides all standard NFT functionality
@@ -56,8 +58,8 @@ PRIVATE_KEY=your_private_key_here
 # Load environment variables
 source .env
 
-# (Optional) Deploy to local network for testing
-forge script script/DeployNFT.s.sol --rpc-url http://localhost:8545 --broadcast
+# (Optional) Simulate deployment
+forge script script/DeployNFT.s.sol --rpc-url eth_sepolia
 
 # Deploy to testnet
 forge script script/DeployNFT.s.sol --rpc-url eth_sepolia --broadcast --private-key $PRIVATE_KEY
