@@ -1,10 +1,15 @@
 # NFT Deployment Guide
 
-## NFT Contract code walkthrough
+This guide covers a complete NFT deployment workflow with enhanced security through multi-signature wallet integration. The process includes:
+
+1. **Deploying an NFT on Ethereum Sepolia** - Deploy your NFT contract to the Sepolia testnet
+2. **Verifying the contract on Etherscan** - Make your contract source code publicly verifiable
+3. **Restricting minting functionality to a multisig admin address** - Configure the contract so only a multisig wallet can mint NFTs
+4. **Minting an NFT through the multisig** - Use the multisig wallet to create new NFTs securely
+
+## NFT Contract Code Walkthrough
 
 ### Ownable
-
-## Multi-sig Wallet Creation
 
 ## NFT Contract Deployment
 
@@ -14,10 +19,9 @@
    ```
 
 ### Step 2: Set up Environment
-Create a `.env` file in the foundry directory:
+Create a `.env` file in the foundry directory and add your private key:
 ```bash
 PRIVATE_KEY=your_private_key_here
-ETHERSCAN_API_KEY=get-your-etherscan-api-key-from-https://etherscan.io/apidashboard
 ```
 
 ### Step 3: Deploy to Ethereum Sepolia
@@ -25,31 +29,65 @@ ETHERSCAN_API_KEY=get-your-etherscan-api-key-from-https://etherscan.io/apidashbo
 # Load environment variables
 source .env
 
-# Deploy to local network for testing
+# (Optional) Deploy to local network for testing
 forge script script/DeployNFT.s.sol --rpc-url http://localhost:8545 --broadcast
 
 # Deploy to testnet
 forge script script/DeployNFT.s.sol --rpc-url eth_sepolia --broadcast --private-key $PRIVATE_KEY
 ```
 
-### Step 4: Transfer Ownership
-After deployment, call the `transferOwnership` function of the contract to transfer its ownership to your Gnosis Safe wallet:
+
+## NFT Contract Verification
+
+### Step 1: Add your Etherscan API key value in `.env` file.
 ```bash
-# Replace CONTRACT_ADDRESS with your deployed contract address, which can be found in the logs after deployment or under `broadcast/DeployNFT.s.sol/11155111/run-latest.json` 
-# Replace GNOSIS_SAFE_ADDRESS with your Gnosis Safe smart account address
+ETHERSCAN_API_KEY=get-your-etherscan-api-key-from-https://etherscan.io/apidashboard
+```
+
+### Step 2: Verify Contract
+```bash
+forge verify-contract --etherscan-api-key $ETHERSCAN_API_KEY --rpc-url eth_sepolia CONTRACT_ADDRESS DemoNFT
+```
+
+### Step 3: Check The Verification
+After verification, you can view your contract on Etherscan:
+1. Go to [Sepolia Etherscan](https://sepolia.etherscan.io)
+2. Search for your contract address
+3. Verify that the "Contract" tab shows the verified source code
+
+
+## Multi-signature Wallet
+
+For better security, we will use a multisig wallet and make it admin of the contract. We will be using Gnosis Safe - the current market leader of multisig providers -  to create the wallet. 
+
+### Multisig Wallet Creation
+
+1. Go to [app.safe.global](https://app.safe.global)
+2. Click "Create Safe"
+3. Choose your network (Sepolia for this demo)
+4. Add signer wallets and configure the required number of signatures. (Note that the signer wallets need to hold some Sepolia ETH or coin of your network choice to execute transactions)
+5. Deploy your Safe wallet by signing with one of your signer wallets
+6. Note down your Safe wallet address for later use
+
+### Transfer Contract Ownership to Multisig Wallet
+After deployment, call the `transferOwnership` function of the contract to transfer its ownership to your Safe wallet:
+```bash
+# Replace CONTRACT_ADDRESS with your deployed contract address. It can be found in the logs after deployment or under `broadcast/DeployNFT.s.sol/11155111/run-latest.json` 
+# Replace GNOSIS_SAFE_ADDRESS with your Safe wallet address
 cast send CONTRACT_ADDRESS "transferOwnership(address)" GNOSIS_SAFE_ADDRESS \
   --rpc-url eth_sepolia \
   --private-key $PRIVATE_KEY
 ```
 
-## Minting with Multi-sig Wallet
+
+## Minting with Multisig Wallet
 
 ### Step 1: Get your Contract ABI json
 ```bash
 forge inspect DemoNFT abi --json >> DemoNFT.abi.json
 ```
 
-### Step 2: Submit Mint Transaction via Gnosis Safe Web Interface
+### Step 2: Submit Mint Transaction via Safe Web Interface
 
 1. Go to [app.safe.global](https://app.safe.global)
 2. Connect your Safe wallet
@@ -59,7 +97,7 @@ forge inspect DemoNFT abi --json >> DemoNFT.abi.json
 6. Update the `to` address to give the minted NFT to
 7. Submit the transaction through your multi-sig process
 
-### Step 3: Process Multi-sig 
+### Step 3: Process Multisig 
 The `mint` transaction submitted through Step 2 will be queued under your wallet dashboard `Transactions - Queue` section.
 
 1. Connect to one of your signer wallets and confirm the transaction. 
