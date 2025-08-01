@@ -156,3 +156,38 @@ You can verify an NFT has been minted:
 - Check if the Safe wallet signers have enough ETH for gas
 - Verify the recipient address is valid
 - Ensure the Safe wallet is the contract owner
+
+## Brought to you by `Status Network`
+
+Status Network is a decentralized blockchain infrastructure project designed to support builders, developers, and users through an innovative, community-driven funding model. Originally known for its secure messaging app and secure wallet, Status has evolved to develop its own Ethereum layer-2 (L2) rollup solution in partnership with the Linea zkEVM stack.
+
+### Key Features
+
+- **Gasless Architecture**: Unlike traditional blockchains that rely on transaction fees (gas), Status Network introduces a gasless architecture powered by yield from user-deposited assets
+- **Free Transactions**: This gasless architecture enables free transactions for non-spammy users and funds network operations through native yields
+- **Community-Driven**: Supports builders, developers, and users through an innovative funding model
+
+### Current Status
+
+Status Network is currently in testnet phase with:
+
+- **Fully Operational Gasless Environment**: Complete gasless infrastructure for testing
+- **Active Development Partnerships**: Collaborations within the Linea ecosystem
+- **Native Token**: Own token (SNT) for governance and security
+- **Community Campaigns**: Active programs for early participants and liquidity providers
+
+### Upcoming Milestones
+
+- **Yield-Powered Bridge**: Public test of their yield-powered bridge
+- **Mainnet Launch**: Preparations for mainnet deployment
+- **Native Apps Expansion**: Further development across gaming, social, and DeFi categories
+
+### Future Vision
+
+Status Network aims to become a sustainable, self-funding L2 platform that offers:
+
+- **Ongoing Public Goods Funding**: Continuous support for public goods
+- **Decentralized Support**: New blueprint for decentralized, transparent, and long-term support of apps and protocols
+- **Ecosystem Growth**: Fostering large-scale ecosystem growth
+- **Developer Onboarding**: Open funding rounds for developers
+- **Ethereum Integration**: Reinforcing the decentralization and resilience of the wider Ethereum and Linea ecosystems
