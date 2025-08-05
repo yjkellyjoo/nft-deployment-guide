@@ -38,6 +38,10 @@ Code can be found under [`src/NFT.sol`](https://github.com/yjkellyjoo/nft-deploy
 
 ## NFT Contract Deployment
 
+### Prerequisites
+ - `Foundry`: Smart Contract Deployment toolkit, download instructions can be found at https://getfoundry.sh
+ - `Private key` of your wallet funded with some Sepolia ETH to be used for gas fee.
+
 ### Step 1: Compile your contract
 
 ```bash
@@ -89,11 +93,11 @@ After verification, you can view your contract on Etherscan:
 
 ## Multi-signature Wallet
 
-For better security, we will use a multisig wallet and make it admin of the contract. We will be using Gnosis Safe - the current market leader of multisig providers - to create the wallet.
+A multisig wallet, short for multi-signature wallet, is a special wallet that requires multiple people's sign-off before any transaction can happen. For better security, we will use a multisig wallet and make it admin of the contract. This prevents a single compromised wallet from taking over your contract. We will be using Gnosis Safe - the current market leader of multisig providers - to create the wallet.
 
 ### Multisig Wallet Creation
 
-1. Go to [app.safe.global](https://app.safe.global)
+1. Go to [app.safe.global](https://app.safe.global) and connect your wallet
 2. Click "Create Safe"
 3. Choose your network (Sepolia for this demo)
 4. Add signer wallets and configure the required number of signatures. (Note that the signer wallets need to hold some Sepolia ETH or coin of your network choice to execute transactions)
@@ -122,13 +126,12 @@ forge inspect DemoNFT abi --json >> DemoNFT.abi.json
 
 ### Step 2: Submit Mint Transaction via Safe Web Interface
 
-1. Go to [app.safe.global](https://app.safe.global)
-2. Connect your Safe wallet
-3. Navigate to "Apps" → "Transaction Builder"
-4. Upload your NFT contract ABI from Step 1
-5. Select the `mint` function to call
-6. Update the `to` address to give the minted NFT to
-7. Submit the transaction through your multi-sig process
+1. Go to your Safe wallet dashboard on [app.safe.global](https://app.safe.global)
+2. Navigate to "New transaction" → "Transaction Builder"
+3. Upload your NFT contract ABI from Step 1
+4. Select the `mint` function to call
+5. Update the `to` address to give the minted NFT to
+6. Submit the transaction through your multi-sig process
 
 ### Step 3: Process Multisig
 
